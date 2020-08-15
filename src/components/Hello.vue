@@ -37,6 +37,9 @@
 export default {
   name: 'Hello',
   props: {
+    marketJson: null,
+    shmarketJson: null,
+    redbubbleJson: null,
   },
   data: () => ({
     hrefs1: [
@@ -265,8 +268,23 @@ export default {
       return false
     }
   },
-  mounted () {
+  beforeMount () {
     this.isRu = navigator.languages.includes('ru') || navigator.languages.includes('ru_RU')
+    if (this.shmarketJson) {
+      this.hrefs1 = this.shmarketJson.links
+      this.slides1_big = this.shmarketJson.big
+      this.slides1_small = this.shmarketJson.small
+    }
+    if (this.redbubbleJson) {
+      this.hrefs2 = this.redbubbleJson.links
+      this.slides2_big = this.redbubbleJson.big
+      this.slides2_small = this.redbubbleJson.small
+    }
+    if (this.marketJson) {
+      this.hrefs3 = this.marketJson.links
+      this.slides3_big = this.marketJson.big
+      this.slides3_small = this.marketJson.small
+    }
     if (this.isRu) {
       setTimeout(() => {
         this.asNavFor1_1.push(this.$refs.thumbnails1)
